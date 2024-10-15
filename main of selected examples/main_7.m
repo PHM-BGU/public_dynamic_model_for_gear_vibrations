@@ -27,7 +27,12 @@ toc
 figure(1) ; hold on ;
 plot(vibSigs.t, vibSigs.(chan), 'DisplayName', 'H') ;
 saStruct = buildSAStruct(vibSigs.(chan), speedIn*Z.in/Z.out, Z.out, vibSigs.Fs, FsDownSamp) ;
-save([path2save, '\healthy'], 'saStruct') ;
+try
+    save([path2save, '\healthy'], 'saStruct') ;
+catch
+    mkdir(path2save);
+    save([path2save, '\healthy'], 'saStruct') ;
+end
 vibSigsH = vibSigs ;
 
 %% Extract the surface quaility erros from the healthy simulation %%
